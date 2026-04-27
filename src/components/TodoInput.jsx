@@ -10,6 +10,7 @@ function TodoInput() {
     
     const addingToList = () => {
       setItemName(localText)
+      setLocalText("")
     }
     
     console.log('render...', itemName);
