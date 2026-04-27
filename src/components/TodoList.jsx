@@ -1,6 +1,9 @@
 import React from 'react'
+import { useItemName } from '../context/todoContext'
 
 export default function TodoList() {
+
+    const { itemName } = useItemName();
   return (
     <>
     <div className='p-2 bg-pink-300 w-full rounded-lg'>
@@ -8,7 +11,7 @@ export default function TodoList() {
             <li className='flex justify-between'>
                 <div className='font-semibold flex gap-3 items-center'>
                 <input type="checkbox" name="" id="" />
-                <span>Name</span>
+                <span>{itemName}</span>
                 </div>
 
                 <div className='font-semibold flex gap-2'>
