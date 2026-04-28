@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useItemName } from "../context/todoContext";
 
 export default function TodoList() {
@@ -6,48 +5,54 @@ export default function TodoList() {
 
   // checked item
 
-    const handleCompleted = (id) => {
-        setItemName(prev => 
-            prev.map(item => item.id === id ? {...item, completed : !item.completed} : item)
-        )
-    }
+  const handleCompleted = (id) => {
+    setItemName((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item,
+      ),
+    );
+  };
 
-    // delete item
+  // delete item
   const delItem = (id) => {
-    setItemName(prev => 
-        prev.filter(item => item.id !== id)
-    )
-  }
+    setItemName((prev) => prev.filter((item) => item.id !== id));
+  };
 
   // edit item
   const editItem = () => {
     // don't code this...!!!
-  }
+  };
 
   return (
     <>
       <ul className="w-full">
         {itemName.map(({ id, name, completed }) => (
-            
           <li
             key={id}
-            className={`flex justify-between mb-2 p-2 ${completed ? 'bg-lime-300' : 'bg-pink-300'} w-full rounded-lg`}
+            className={`flex justify-between mb-2 p-2 ${completed ? "bg-lime-300" : "bg-pink-300"} w-full rounded-lg`}
           >
             <div className="font-semibold flex gap-3 items-center">
-              <input type="checkbox" name="" id="" checked={completed} 
-              onChange={() => handleCompleted(id)}
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                checked={completed}
+                onChange={() => handleCompleted(id)}
               />
-              <span className={completed ? 'line-through' : ''}>{name}</span>
+              <span className={completed ? "line-through" : ""}>{name}</span>
             </div>
 
             <div className="font-semibold flex gap-2">
-              <button id={id} className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
-              onClick={() => editItem()}
+              <button
+                id={id}
+                className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
+                onClick={() => editItem()}
               >
                 ✏
               </button>
-              <button className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
-              onClick={() => delItem(id)}
+              <button
+                className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
+                onClick={() => delItem(id)}
               >
                 ❌
               </button>
