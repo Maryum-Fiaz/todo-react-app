@@ -9,7 +9,14 @@ function TodoInput() {
 
     
     const addingToList = () => {
-      setItemName(localText)
+
+      if(!localText.trim()) return;
+
+      const newItemObj = {
+        id: Date.now(),
+        name: localText,
+      }
+      setItemName([...itemName, newItemObj])
       setLocalText("")
     }
     

@@ -8,13 +8,13 @@ export default function TodoList() {
 
   return (
     <>
-    <div className='p-2 bg-pink-300 w-full rounded-lg'>
-        <ul>
-            
-            <li className='flex justify-between'>
+    
+        <ul className='w-full'>
+            {itemName.map(({id, name}) => (
+            <li key={id} className='flex justify-between mb-2 p-2 bg-pink-300 w-full rounded-lg'>
                 <div className='font-semibold flex gap-3 items-center'>
                 <input type="checkbox" name="" id="" />
-                <span>{itemName}</span>
+                <span>{name}</span>
                 </div>
 
                 <div className='font-semibold flex gap-2'>
@@ -22,8 +22,8 @@ export default function TodoList() {
                     <button className='p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400'>❌</button>
                 </div>
             </li>
+            ))}
         </ul>
-    </div>
     </>
   )
 }

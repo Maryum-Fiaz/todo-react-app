@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 // create context
 export const ItemContext = createContext({
-    itemName: '',
+    itemName: [],
     setItemName: () => {},
 });
 
