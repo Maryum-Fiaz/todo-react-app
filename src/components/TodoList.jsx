@@ -14,9 +14,9 @@ export default function TodoList() {
 
     // delete item
   const delItem = (id) => {
-   const newItemName = itemName.filter(i => i.id !== id)
-   setItemName(newItemName)
-
+    setItemName(prev => 
+        prev.filter(item => item.id !== id)
+    )
   }
 
   // edit item
