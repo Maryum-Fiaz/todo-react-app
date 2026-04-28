@@ -15,6 +15,7 @@ function TodoInput() {
       const newItemObj = {
         id: Date.now(),
         name: localText,
+        completed: false,
       }
       setItemName([...itemName, newItemObj])
       setLocalText("")
