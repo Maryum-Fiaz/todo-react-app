@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useItemName } from "../context/todoContext";
 
 export default function TodoList() {
   const { itemName, setItemName } = useItemName();
   const [tempName, setTempName] = useState("");
+  const inputRef = useRef();
+
+  // focus on input field when edit
+  useEffect(() => {
+    if(inputRef.current) inputRef.current.focus()
+  }, [itemName])
 
   // checked item
-
   const handleCompleted = (id) => {
     setItemName((prev) =>
       prev.map((item) =>
@@ -22,27 +27,27 @@ export default function TodoList() {
 
   // edit item
   const editItem = (id) => {
+    const itemToFind = itemName.find((i) => i.id === id);
 
+    if (itemToFind) {
+      setTempName(itemToFind.name);
 
-    const itemToFind = itemName.find(i => i.id === id)
-
-    if(itemToFind) {
-      setTempName(itemToFind.name)
-
-      setItemName(prev => 
-        prev.map(item => 
-          item.id === id ? {...item, isEditing: !item.isEditing} : item
-        )
-      )
+      setItemName((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, isEditing: !item.isEditing } : item,
+        ),
+      );
     }
   };
 
+  // saved edit item
   const savedEditItem = (id, tempName) => {
-    setItemName((current) => 
-    current.map(item => 
-      item.id === id ? {...item, name: tempName, isEditing: false} : item
-    ))
-  }
+    setItemName((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, name: tempName, isEditing: false } : item,
+      ),
+    );
+  };
 
   return (
     <>
@@ -61,31 +66,35 @@ export default function TodoList() {
                 onChange={() => handleCompleted(id)}
               />
               {isEditing ? (
-                <input type="text" className="outline-none" value={tempName} onChange={(e) => setTempName(e.target.value)} />
+                <input
+                  type="text"
+                  className="outline-none"
+                  ref={inputRef}
+                  value={tempName}
+                  onChange={(e) => setTempName(e.target.value)}
+                />
               ) : (
                 <span className={completed ? "line-through" : ""}>{name}</span>
               )}
             </div>
 
             <div className="font-semibold flex gap-2">
-              
               {isEditing ? (
                 <button
-                id={id}
-                className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
-                onClick={() => savedEditItem(id, tempName)}
-              >
-                📂
-              </button>
+                  id={id}
+                  className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
+                  onClick={() => savedEditItem(id, tempName)}
+                >
+                  📂
+                </button>
               ) : (
-
-              <button
-                id={id}
-                className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
-                onClick={() => editItem(id)}
-              >
-                ✏
-              </button>
+                <button
+                  id={id}
+                  className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
+                  onClick={() => editItem(id)}
+                >
+                  ✏
+                </button>
               )}
               <button
                 className="p-2 bg-olive-300 rounded cursor-pointer hover:bg-olive-400"
