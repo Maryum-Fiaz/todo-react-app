@@ -22,8 +22,9 @@ export default function TodoList() {
 
   // edit item
   const editItem = (id) => {
-    const itemToFind = itemName.find((i) => i.id === id);
 
+    const itemToFind = itemName.find((i) => i.id === id);
+  
     if (itemToFind) {
       setTempName(itemToFind.name);
 
