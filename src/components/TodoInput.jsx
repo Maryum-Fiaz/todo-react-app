@@ -12,6 +12,7 @@ function TodoInput() {
       id: Date.now(),
       name: localText,
       completed: false,
+      isEditing: false,
     };
     setItemName([...itemName, newItemObj]);
     setLocalText("");
