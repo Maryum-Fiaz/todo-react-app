@@ -1,15 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useItemName } from "../context/todoContext";
 
 export default function TodoList() {
   const { itemName, setItemName } = useItemName();
   const [tempName, setTempName] = useState("");
-  const inputRef = useRef();
 
-  // focus on input field when edit
-  useEffect(() => {
-    if(inputRef.current) inputRef.current.focus()
-  }, [itemName])
 
   // checked item
   const handleCompleted = (id) => {
@@ -60,8 +55,6 @@ export default function TodoList() {
             <div className="font-semibold flex gap-3 items-center">
               <input
                 type="checkbox"
-                name=""
-                id=""
                 checked={completed}
                 onChange={() => handleCompleted(id)}
               />
@@ -69,7 +62,7 @@ export default function TodoList() {
                 <input
                   type="text"
                   className="outline-none"
-                  ref={inputRef}
+                  autoFocus
                   value={tempName}
                   onChange={(e) => setTempName(e.target.value)}
                 />
