@@ -11,4 +11,8 @@ Prop drilling
 - Wrap the app in a Provider so every child component has access to the context / broadcast.
 - Use context anywhere in the app by only importing data through custom hook.
 
+### Note
+- ***main branch:*** buggy version
+- ***improved-todo branch:*** improved version
+
 
