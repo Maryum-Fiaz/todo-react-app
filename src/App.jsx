@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TodoContext } from './context/todoContext.js'
+import TodoForm from './components/TodoForm.jsx';
 
 function App() {
 
@@ -7,7 +8,7 @@ function App() {
 
   // add item
   const addTodos = (todo) => {
-    setTodos(prev => [{id: Date.now(), title: todo},...prev])
+    setTodos(prev => [{id: Date.now(), ...todo}, ...prev])
   }
 
   // Update item
@@ -33,6 +34,16 @@ function App() {
     )
   }
 
+  //local Storage
+
+  useEffect(() =>{
+    JSON.parse(localStorage.getItem('myTodos')) || []
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('myTodos', JSON.stringify(todos))
+  }, [todos])
+
 
    return (
     <TodoContext.Provider value={{todos, addTodos, updateTodo, deleteTodo, toggleComplete}}>
@@ -41,8 +52,8 @@ function App() {
           Manage Your Todo
         </h1>
         <div className="bg-amber-100 p-3 flex flex-col justify-center items-center rounded-lg border-2 border-olive-800 w-2xl min-w-2xs">
-          <div className="mb-2">
-          <p>form here</p>
+          <div className="mb-4">
+          <TodoForm />
 
           </div>
 
