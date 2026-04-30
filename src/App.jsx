@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TodoContext } from './context/todoContext.js'
 import TodoForm from './components/TodoForm.jsx';
+import TodoItem from './components/TodoItem.jsx';
 
 function App() {
 
@@ -12,10 +13,10 @@ function App() {
   }
 
   // Update item
-  const updateTodo = (id, todo) => {
+  const updateTodo = (id, todoMsg) => {
     setTodos(prev => 
       prev.map(obj => 
-        obj.id === id ? {...obj, title: todo} : obj
+        obj.id === id ? {...obj, title: todoMsg} : obj
       )
     )
   }
@@ -37,7 +38,11 @@ function App() {
   //local Storage
 
   useEffect(() =>{
-    JSON.parse(localStorage.getItem('myTodos')) || []
+    const myTodos = JSON.parse(localStorage.getItem('myTodos'))
+
+    if(myTodos && myTodos.length > 0){
+      setTodos(myTodos)
+    }
   }, [])
 
   useEffect(() => {
@@ -57,10 +62,13 @@ function App() {
 
           </div>
 
-          <div>
-          <p>items here</p>
-
+          {todos.map(todo => (
+          <div key={todo.id} className={`flex justify-between mb-2 p-2 ${todo.completed ? 'bg-lime-300' : 'bg-pink-300'} w-full rounded-lg`}>
+          <TodoItem todo={todo} />
           </div>
+
+          ))}
+
         </div>
       </div>
     </TodoContext.Provider>

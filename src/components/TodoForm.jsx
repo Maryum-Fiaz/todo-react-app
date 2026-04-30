@@ -12,7 +12,7 @@ function TodoForm() {
     if(!todo.trim()) return;
     
     addTodos({title: todo, completed: false})
-    // setTodo('')
+    setTodo('')
   }
 
   console.log("todo: ", todo);
